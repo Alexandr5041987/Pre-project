@@ -50,10 +50,14 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void removeUserById(long id) {
-        try (Statement statement = connection.createStatement()) {
-            String sql = "DELETE FROM test.users where id";
-            statement.executeUpdate(sql);
-            System.out.println("User удален");
+         try (PreparedStatement statement = connection.prepareStatement("DELETE FROM test.users WHERE id = ?")) {
+            statement.setLong(1, id);
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("User удален");
+            } else {
+                System.out.println("User с указанным id не найден");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
