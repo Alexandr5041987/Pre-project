@@ -109,10 +109,10 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return email.equals(user.email);
+        return username.equals(user.username);
     }
     @Override
     public int hashCode() {
-        return email.hashCode();
+        return username.hashCode();
     }
 }
